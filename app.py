@@ -5,7 +5,7 @@ from flask_peewee.db import Database
 # flask-peewee auth
 from flask_peewee.auth import Auth
 from peewee import *
-from flask_peewee.admin import Admin
+from flask_peewee.admin import Admin, ModelAdmin
 from flask_oauth import OAuth
 from settings import *
 # configure our database
@@ -46,6 +46,8 @@ class Owner(db.Model):
 class Drop(db.Model):
 	drop_owner = ForeignKeyField(Owner)
 	drop_address = TextField()
+	drop_lat = CharField()
+	drop_long = CharField()
 	drop_tags = CharField()
 
 	'''def __init__(self, drop_owner, drop_address, drop_tags):
@@ -55,9 +57,16 @@ class Drop(db.Model):
 
 
 admin = Admin(app, auth)
+
+class OwnerAdmin(ModelAdmin):
+	columns = ('name', 'email', 'facebook_id',)
+
+class DropAdmin(ModelAdmin):
+	columns = ('drop_owner', 'drop_address', 'drop_lat', 'drop_long', 'drop_tags',)
+
 admin.register(auth.User)
-admin.register(Owner)
-admin.register(Drop)
+admin.register(Owner, OwnerAdmin)
+admin.register(Drop, DropAdmin)
 admin.setup()
 
 

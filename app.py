@@ -37,7 +37,9 @@ class Owner(db.Model):
 	name = CharField()
 	email = CharField(unique=True)
 	facebook_id = CharField(unique=True)
-	
+
+	def __unicode__(self):
+		return self.name	
 	'''def __init__(self, name, email, facebook_id):
 		self.name = name
 		self.email = email

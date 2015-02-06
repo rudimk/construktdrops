@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for, session, request
+from flask import Flask, redirect, url_for, session, request, render_template
 
 # flask-peewee bindings
 from flask_peewee.db import Database
@@ -70,6 +70,10 @@ admin.register(auth.User)
 admin.register(Owner, OwnerAdmin)
 admin.register(Drop, DropAdmin)
 admin.setup()
+
+@app.route('/')
+def index():
+	return render_template('index.html')
 
 
 @app.route('/login')

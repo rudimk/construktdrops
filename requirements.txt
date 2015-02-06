@@ -1,0 +1,4 @@
+flask
+flask-peewee
+requests
+flask-oauth
